@@ -8,6 +8,12 @@ def fetch_user_events(username: str, limit: int):
 
     if response.status_code == 200:
         events = response.json()[:limit]
+
+        if len(events) == 0:
+            print(f"No event data found with {username}")
+            print("Are you sure the username is correct?")
+            return
+
         for event in events:
             if event["type"] == "WatchEvent":
                 print(f"Starred {event['repo']['name']}")
